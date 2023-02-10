@@ -1,6 +1,6 @@
 # pw-components-php-dev
 ## Requirements
- * PHP version 8.0 or higher
+ * PHP version 8.0 ou supérieure
 
 ## Installation
 
