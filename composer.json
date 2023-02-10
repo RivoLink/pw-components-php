@@ -1,0 +1,21 @@
+{
+    "name": "passion-web/pw-components-php-dev",
+    "description": "PW Components",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "passion-web",
+            "email": "rafalimananafabrice@gmail.com"
+        }
+    ],
+    "version": "0.0.2",
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pw\\": "src/"
+        }
+    }
+}
