@@ -118,3 +118,54 @@ class RateLimiterService {
     }
 }
 ```
+
+
+
+### DataTable
+#### Importation de la classe
+```php
+use Pw\DataTable\ApiDataTable
+```
+
+
+#### Exemple d’utilisation
+```php
+namespace App\Service;
+
+
+use App\Entity\Utilisateur;
+use Pw\DataTable\ApiDataTable;
+
+class RateLimiterService {
+    private $em;
+    private $apiDataTable;
+
+    public function __construct(
+        EntityManagerInterface $em,
+        ApiDataTable  $apiDataTable
+    ){
+        $this->em = $em;
+        $this->apiDataTable = $apiDataTable;
+    }
+
+    public function getDataTable()
+    {
+        $params = [
+            "em" => $this->em,
+            "query" => [
+                "key" => "",
+                "page" => "1",
+                "limit" => "5",
+                "filters" => [],
+                "order" => "ASC",
+                "order_by" => "name",
+            ],
+            "entity" => Utilisateur::class
+        ];
+        $apiDataTable = $this->apiDataTable;
+        $result = $apiDataTable->get($params);
+
+        return $result;
+    }
+}
+```
