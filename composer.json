@@ -8,7 +8,7 @@
             "name": "passion-web"
         }
     ],
-    "version": "0.0.2",
+    "version": "0.0.3",
     "require": {
         "php": "^8.0"
     },

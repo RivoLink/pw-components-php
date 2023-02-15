@@ -127,6 +127,20 @@ class RateLimiterService {
 use Pw\DataTable\ApiDataTable
 ```
 
+#### Configuration 
+Modification du fichier services.yaml pour autoriser le autowire de l’apiDataTable autowire: true
+```yaml
+    Pw\DataTable\ApiDataTable:
+        # redundant thanks to _defaults, but value is overridable on each service
+        autowire: true
+```
+Modification du fichier bundle.php 
+```php
+    return [
+   ...
+    Pw\DataTable\ApiDataTable::class => ['dev' => true, 'test' => true],
+];
+```
 
 #### Exemple d’utilisation
 ```php
