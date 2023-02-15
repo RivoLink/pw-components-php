@@ -64,8 +64,11 @@ class ApiDataTable  {
                 $datas = $this->getColumnNamesValue($results, $columns);
                 $nbrPagination = $this->getTotalFiltered($total, $limit);
 
+
+                $result['page'] = $page;
                 $result['datas'] = $datas;
                 $result['total'] = $total;
+                $result['limit'] = $limit;
                 $result['totalFiltered'] = $total;
                 $result['nbrPagination'] = intval($nbrPagination) ;
 
