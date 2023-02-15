@@ -1,9 +1,7 @@
 <?php
 namespace Pw\DataTable;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class ApiDataTable extends Bundle  {
+class ApiDataTable {
     
     public function get($params=[])
     {
