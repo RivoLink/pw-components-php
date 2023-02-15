@@ -150,7 +150,7 @@ namespace App\Service;
 use App\Entity\Utilisateur;
 use Pw\DataTable\ApiDataTable;
 
-class RateLimiterService {
+class ApiDataTableService {
     private $em;
     private $apiDataTable;
 
