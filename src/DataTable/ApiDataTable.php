@@ -45,7 +45,7 @@ class ApiDataTable  {
                 }
 
                 // Add an ORDER BY clause
-                if ($order_by) {
+                if ($order_by && in_array($order_by, $columns)) {
                     $qb->orderBy($tableName.'.'.$order_by, $ordering);
                 }
 
