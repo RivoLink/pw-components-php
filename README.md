@@ -142,6 +142,17 @@ Modification du fichier bundle.php
 ];
 ```
 
+Faire ```php extend ``` la classe Pw\DataTable dans vendor par Bundle
+```php
+namespace Pw\DataTable;
+
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+class ApiDataTable extends Bundle  {
+  ...
+}
+```
+
 #### Exemple d’utilisation
 ```php
 namespace App\Service;
@@ -183,3 +194,4 @@ class ApiDataTableService {
     }
 }
 ```
+
