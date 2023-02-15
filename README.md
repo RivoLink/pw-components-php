@@ -142,7 +142,7 @@ Modification du fichier bundle.php
 ];
 ```
 
-Faire ``` extend ``` la classe ```Pw\DataTable``` dans vendor par ```Bundle```
+Faire ``` extend ``` la classe ```Pw\DataTable``` dans vendor par ```Symfony\Component\HttpKernel\Bundle\Bundle```
 ```php
 namespace Pw\DataTable;
 
