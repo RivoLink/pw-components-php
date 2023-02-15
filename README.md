@@ -142,7 +142,7 @@ Modification du fichier bundle.php
 ];
 ```
 
-Faire ```php extend ``` la classe Pw\DataTable dans vendor par Bundle
+Faire ``` extend ``` la classe ```Pw\DataTable``` dans vendor par ```Bundle```
 ```php
 namespace Pw\DataTable;
 
