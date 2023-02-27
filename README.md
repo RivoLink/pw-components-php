@@ -212,15 +212,16 @@ namespace App\Service;
 
 use Pw\Params\Params;
 
-class RateLimiterService {
+class FormulaireService {
 
     public function __construct(){
         $this->pwParams = new Params();
     }
 
-    public function rateLimiter()
+    public function addFormulaire()
     {
         $pwParams = $this->pwParams;
+        
         // retrieves $_GET variables 
         $lastname = $pwParams->post($request, "lastname");
 
