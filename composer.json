@@ -1,5 +1,5 @@
 {
-    "name": "atrika/pw-components-php",
+    "name": "florence/pw-components-php",
     "description": "PW Components",
     "type": "library",
     "license": "MIT",
@@ -8,7 +8,7 @@
             "name": "passion-web"
         }
     ],
-    "version": "0.0.5",
+    "version": "0.0.7",
     "require": {
         "php": "^8.0"
     },
