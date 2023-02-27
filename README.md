@@ -195,3 +195,46 @@ class ApiDataTableService {
 }
 ```
 
+### Params
+#### Importation de la classe
+```php
+use Pw\Params\Params
+```
+
+#### Instanciation
+```php
+$pwParams = new Params()
+```
+
+#### Exemple d’utilisation
+```php
+namespace App\Service;
+
+use Pw\Params\Params;
+use Symfony\Component\RateLimiter\RateLimiterFactory ;
+
+class RateLimiterService {
+
+    public function __construct(){
+        $this->pwParams = new Params();
+    }
+
+    public function rateLimiter()
+    {
+        $pwParams = $this->pwParams;
+        // retrieves $_GET variables 
+        $lastname = $pwParams->post($request, "lastname");
+
+        // retrieves  $_POST variables 
+        $lastname = $pwParams->get($request, "lastname");
+
+        // get value in associative array by key
+        $array = [
+            "lastname" => "Rakoto"
+        ];
+        $lastname = $pwParams->array($array, "lastname");
+
+        return $pwParams->response("ok", "success", []);
+    }
+}
+```
