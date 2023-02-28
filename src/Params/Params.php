@@ -46,6 +46,5 @@ class Params  {
             'message' => $message,
             'data' => $data
         );
-    }
-     
+    } 
 }
