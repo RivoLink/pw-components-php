@@ -1,5 +1,5 @@
 {
-    "name": "florence/pw-components-php",
+    "name": "raholiarivelo008/pw-components-php",
     "description": "PW Components",
     "type": "library",
     "license": "MIT",
@@ -8,7 +8,7 @@
             "name": "passion-web"
         }
     ],
-    "version": "0.0.7",
+    "version": "0.0.8",
     "require": {
         "php": "^8.0"
     },
