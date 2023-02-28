@@ -142,17 +142,6 @@ Modification du fichier bundle.php
 ];
 ```
 
-Faire ``` extend ``` la classe ```Pw\DataTable``` dans vendor par ```Symfony\Component\HttpKernel\Bundle\Bundle```
-```php
-namespace Pw\DataTable;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class ApiDataTable extends Bundle  {
-  ...
-}
-```
-
 #### Exemple d’utilisation
 ```php
 namespace App\Service;
@@ -222,10 +211,10 @@ class FormulaireService {
     {
         $pwParams = $this->pwParams;
         
-        // retrieves $_GET variables 
+        // retrieves $_POST variables 
         $lastname = $pwParams->post($request, "lastname");
 
-        // retrieves  $_POST variables 
+        // retrieves  $_GET variables 
         $lastname = $pwParams->get($request, "lastname");
 
         // get value in associative array by key
