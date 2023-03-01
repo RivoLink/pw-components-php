@@ -9,6 +9,7 @@
           "email": "rivo.link@gmail.com"
         }
     ],
+    "version": "0.0.1",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
