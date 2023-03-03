@@ -28,8 +28,8 @@ class GeneratorCommand extends Command {
         $param_controller = "src/Controller/Front/FrontController";
         $param_name = "ProtectionDesDonnees";
 
-        $route_url = CoreHelper::camelToSnake($param_name);
-        $route_name = "/".str_replace("_", "-", $route_url);
+        $route_name = CoreHelper::camelToSnake($param_name);
+        $route_url = "/".str_replace("_", "-", $route_name);
 
         // ---------- Begin here
 
