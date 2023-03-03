@@ -6,11 +6,8 @@ use Pw\Generator\Helper\FileHelper;
 
 class TwigGenerator {
 
-    const DEFAULT_DOMAINS = [
-        "front",
-        "admin",
-        "member",
-    ];
+    const FILE_PAGE = "templates_page.twig.pw";
+    const FILE_LAYOUT = "templates_layout.twig.pw";
 
     public static function getDefaultDir(){
         $project_dir = CoreHelper::getProjectDir();
@@ -20,6 +17,17 @@ class TwigGenerator {
     public static function getBasePath($name){
         $base_path = "$name.html.twig";
         return $base_path;
+    }
+
+    public static function getTemplatePath($path){
+        $template_pos = strpos($path, "templates");
+
+        if(is_int($template_pos)){
+            $template_path = substr($path, $template_pos+10);
+            return $template_path;
+        }
+
+        return $path;
     }
 
     public static function getPath($name){
@@ -44,48 +52,56 @@ class TwigGenerator {
         return basename($path, ".html.twig");
     }
 
-    public function createLayout($name=null){
+    public static function createLayout($name=null){
         $dir = self::getDefaultDir();
 
         if($name){
             $dir = dirname(self::getPath($name));
         }
 
-        $path = "$dir/layout.html.twig";
-
-
-        // TODO
-
-        
-        return $path;
-    }
-
-    public static function createTwig($name){
-        $path = self::getPath($name);
-        $dir = dirname($path);
+        $path = "$dir/layout/index.html.twig";
 
         if(is_file($path)){
             return $path;
         }
 
-        if(!file_exists($dir)){
-            mkdir($dir, 0775, true);
-        }
+        $text = FileHelper::getCompiled(self::FILE_LAYOUT);
 
-        // TODO
-
+        FileHelper::create($path, $text);
+        
         return $path;
     }
 
-    
+    public static function createTwig($data){
+        $get = [CoreHelper::class, "getIn"];
 
-    
+        $name = $get($data, "name");
+        $title = $get($data, "title");
+        $entrypoint = $get($data, "entrypoint");
+        $description = $get($data, "description");
+        $webpack = $get($data, "webpack");
 
+        $path = self::getPath($name);
+        $name = CoreHelper::camelToSnake($name);
 
-    
+        if(is_file($path)){
+            return $path;
+        }
 
+        $layout = self::createLayout($name);
+        $layout_tpath = self::getTemplatePath($layout);
 
+        $text = FileHelper::getCompiled(self::FILE_PAGE, [
+            "name" => $name,
+            "title" => $title,
+            "layout" => $layout_tpath,
+            "description" => $description,
+            "entrypoint" => $entrypoint,
+            "webpack_config" => basename($webpack, ".js"),
+        ]);
+        
+        FileHelper::create($path, $text);
 
-
-
+        return $path;
+    }
 }

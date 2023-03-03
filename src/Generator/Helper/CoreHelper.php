@@ -7,7 +7,7 @@ class CoreHelper {
         if(!$text || !is_array($params)){
             return $text;
         }
-
+      
         foreach($params as $key => $value){
             $value = $value ? $value : "";
             $text = str_replace('{{'.$key.'}}', $value, $text);
@@ -25,7 +25,36 @@ class CoreHelper {
             $text = $safe;
         }
 
+        $text = str_replace('[[:brace]]', '{{', $text);
+        $text = str_replace('[[brace:]]', '}}', $text);
+       
         return $text;
+    }
+
+    public static function getControlerSubdir($path){
+        $dir = dirname($path);
+        $controller_pos = strpos($dir, "Controller");
+
+        if(is_int($controller_pos)){
+            $subdir = substr($dir, $controller_pos+11);
+            $subdir = strtolower($subdir);
+            return $subdir;
+        }
+
+        return null;
+    }
+
+    public static function getComponentSubdir($path){
+        $dir = dirname($path, 2);
+        $modules_pos = strrpos($dir, "modules");
+
+        if(is_int($modules_pos)){
+            $subdir = substr($dir, $modules_pos+8);
+            $subdir = strtolower($subdir);
+            return $subdir;
+        }
+
+        return null;
     }
 
     public static function getIn($array, $key, $default=null){
@@ -50,6 +79,11 @@ class CoreHelper {
         }
 
         return false;
+    }
+
+    public static function camelToSnake($text){
+        $regex = ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'];
+        return strtolower(preg_replace($regex, '$1_$2', $text));
     }
 
     public static function getProjectDir(){
