@@ -25,7 +25,7 @@ class GeneratorCommand extends Command {
 
     // symfony console pw-generator:generate
     protected function execute(InputInterface $input, OutputInterface $output): int {
-        $param_controller = "src/Controller/Front/FrontController";
+        $param_controller = "FrontController";
         $param_name = "ProtectionDesDonnees";
 
         $route_url = CoreHelper::camelToSnake($param_name);
@@ -34,26 +34,29 @@ class GeneratorCommand extends Command {
         // ---------- Begin here
 
         $controller = ControllerGenerator::createController($param_controller);
+        $domain = CoreHelper::getDomain($controller);
 
-        $webpack_config = WebpackGenerator::createConfig("front");
+        $webpack_config = WebpackGenerator::createConfig($domain);
 
         $assets = AssetsGenerator::createFiles($controller, $param_name);
-        [$jsx, $scss, $main, $index, $config] = $assets;
+        $index = CoreHelper::getIn($assets, "index");
 
         $entrypoint = AssetsGenerator::addEntrypoint($webpack_config, $index);
 
         $twig = TwigGenerator::createTwig([
             "name" => $param_name,
+            "controller" => $controller,
             "entrypoint" => $entrypoint,
             "webpack_config" => $webpack_config,
         ]);
+        $twig_template = TwigGenerator::getTemplatePath($twig);
 
         // add methode to controller
         MethodGenerator::insertPageMethod($controller, [
             "route_url" => $route_url,
             "route_name" => $route_name,
             "name" => $param_name,
-            "twig" => basename($twig),
+            "twig" => $twig_template,
         ]);
 
         return Command::SUCCESS;

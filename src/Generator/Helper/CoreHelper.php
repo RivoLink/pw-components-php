@@ -1,7 +1,15 @@
 <?php
 namespace Pw\Generator\Helper;
 
+use Exception;
+
 class CoreHelper {
+
+    const DOMAINS = [
+        "admin",
+        "front",
+        "member",
+    ];
 
     public static function applyParams($text, $params=[]){
         if(!$text || !is_array($params)){
@@ -31,14 +39,34 @@ class CoreHelper {
         return $text;
     }
 
+    public static function getDomain($controller){
+        $subdir = self::getControlerSubdir($controller);
+
+        if($subdir){
+            return explode("/", $subdir)[0];
+        }
+
+        throw new Exception("CoreHelper::getDomain - domain not found");
+    }
+
     public static function getControlerSubdir($path){
         $dir = dirname($path);
         $controller_pos = strpos($dir, "Controller");
 
         if(is_int($controller_pos)){
             $subdir = substr($dir, $controller_pos+11);
+
+            if($subdir){
+                $subdir = strtolower($subdir);
+                return $subdir;
+            }
+
+            $subdir = basename($path, "Controller.php");
             $subdir = strtolower($subdir);
-            return $subdir;
+
+            if(in_array($subdir, self::DOMAINS)){
+                return $subdir;
+            }
         }
 
         return null;

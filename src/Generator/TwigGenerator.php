@@ -30,33 +30,29 @@ class TwigGenerator {
         return $path;
     }
 
-    public static function getPath($name){
+    public static function getPath($controller, $name){
         $default_dir = self::getDefaultDir();
-
-        $path = "$default_dir/$name";
+        $controller_subdir = CoreHelper::getControlerSubdir($controller);
 
         if(!is_int(strpos($name, ".html.twig"))){
-            $path = "$default_dir/$name.html.twig";
+            $name = "$name.html.twig";
+        }
+
+        if($controller_subdir){
+            $path = "$default_dir/$controller_subdir/$name";
+        }
+        else {
+            $path = "$default_dir/$name";
         }
 
         return $path;
     }
 
-    public static function getFilename($name, $extension=false){
-        $path = self::getPath($name);
-        
-        if($extension){
-            return basename($path);
-        }
-
-        return basename($path, ".html.twig");
-    }
-
-    public static function createLayout($name=null){
+    public static function createLayout($page=null){
         $dir = self::getDefaultDir();
 
-        if($name){
-            $dir = dirname(self::getPath($name));
+        if($page){
+            $dir = dirname($page);
         }
 
         $path = "$dir/layout/index.html.twig";
@@ -76,19 +72,25 @@ class TwigGenerator {
         $get = [CoreHelper::class, "getIn"];
 
         $name = $get($data, "name");
+        $name = CoreHelper::camelToSnake($name);
+
         $title = $get($data, "title");
+        $controller = $get($data, "controller");
         $entrypoint = $get($data, "entrypoint");
         $description = $get($data, "description");
-        $webpack = $get($data, "webpack");
+        $webpack_config = $get($data, "webpack_config");
 
-        $path = self::getPath($name);
-        $name = CoreHelper::camelToSnake($name);
+        $path = self::getPath($controller, $name);
 
         if(is_file($path)){
             return $path;
         }
 
-        $layout = self::createLayout($name);
+        if($webpack_config){
+            $webpack_config = basename($webpack_config, ".js");
+        }
+
+        $layout = self::createLayout($path);
         $layout_tpath = self::getTemplatePath($layout);
 
         $text = FileHelper::getCompiled(self::FILE_PAGE, [
@@ -97,7 +99,7 @@ class TwigGenerator {
             "layout" => $layout_tpath,
             "description" => $description,
             "entrypoint" => $entrypoint,
-            "webpack_config" => basename($webpack, ".js"),
+            "webpack_config" => $webpack_config,
         ]);
         
         FileHelper::create($path, $text);

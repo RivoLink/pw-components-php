@@ -176,7 +176,7 @@ class AssetsGenerator {
     }
    
     public static function addEntrypoint($config, $index){
-        $name = basename($index, ".js");
+        $name = basename($index, "_index.js");
 
         $path = self::getAssetsPath($index);
         $path = "./assets/$path";
