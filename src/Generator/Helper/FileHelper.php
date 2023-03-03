@@ -50,6 +50,12 @@ class FileHelper {
             return true;
         }
 
+        $dir = dirname($path);
+
+        if(!file_exists($dir)){
+            mkdir($dir, 0775, true);
+        }
+
         file_put_contents($path, $text);
 
         return true;

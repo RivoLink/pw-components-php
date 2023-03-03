@@ -65,10 +65,6 @@ class ControllerGenerator {
             return $path;
         }
 
-        if(!file_exists($dir)){
-            mkdir($dir, 0775, true);
-        }
-
         $text = FileHelper::getCompiled(self::FILE, [
             "name" => self::getFilename($name),
             "namespace" => self::getNamespace($name),
