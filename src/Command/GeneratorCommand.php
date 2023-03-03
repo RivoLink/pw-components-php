@@ -25,7 +25,7 @@ class GeneratorCommand extends Command {
 
     // symfony console pw-generator:generate
     protected function execute(InputInterface $input, OutputInterface $output): int {
-        $param_controller = "FrontController";
+        $param_controller = "src/Controller/Front/FrontController";
         $param_name = "ProtectionDesDonnees";
 
         $route_url = CoreHelper::camelToSnake($param_name);
