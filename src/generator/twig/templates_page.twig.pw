@@ -1,0 +1,16 @@
+{% extends '{{layout}}' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('{{entrypoint}}', null, '{{webpack_config}}') }} 
+{% endblock %}
+
+{% block variables_javascripts %}
+    <script type="text/javascript">
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('{{entrypoint}}', null, '{{webpack_config}}') }}
+{% endblock %}
