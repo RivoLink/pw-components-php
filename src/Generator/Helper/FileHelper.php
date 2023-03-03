@@ -14,7 +14,7 @@ class FileHelper {
         $size = $right - $left;
         $type = substr($filename, $left, $size);
 
-        $path = "$project_dir/src/generator/$type/$filename";
+        $path = "$project_dir/src/pw_models/$type/$filename";
 
         if(is_file($path)){
             $text = file_get_contents($path);
